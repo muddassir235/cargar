@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Thetacab</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="alert_activity_label">Alert</string>
+    <string name="facebook_app_id">275008296186893</string>
+    <string name="facebook_app_secret">f7d30e96a6b3f4aa7f7d633974b36693</string>
+    <string name="title_activity_transition">TransitionActivity</string>
+</resources>

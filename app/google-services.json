@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "4846524359",
+    "firebase_url": "https://project-2162072630908720035.firebaseio.com",
+    "project_id": "project-2162072630908720035",
+    "storage_bucket": "project-2162072630908720035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4846524359:android:e7ae0bae0e84fb89",
+        "android_client_info": {
+          "package_name": "com.example.hp.thetacab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4846524359-nmbblgvoo9dikfbtaj8sqm3m5e8lv2mk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hp.thetacab",
+            "certificate_hash": "2BD52FE17F999E52CB2E1C470D3C45D2C6A9B928"
+          }
+        },
+        {
+          "client_id": "4846524359-dl65hq050971vi64062dvom6j8ot3uib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsoc1PZOItqHNYc5z2hW_ejPFi2piRR8Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4846524359-dl65hq050971vi64062dvom6j8ot3uib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

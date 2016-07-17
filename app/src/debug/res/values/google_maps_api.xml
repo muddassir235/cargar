@@ -1,0 +1,22 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=2B:D5:2F:E1:7F:99:9E:52:CB:2E:1C:47:0D:3C:45:D2:C6:A9:B9:28%3Bcom.example.hp.thetacab
+
+    You can also add your credentials to an existing key, using this line:
+    2B:D5:2F:E1:7F:99:9E:52:CB:2E:1C:47:0D:3C:45:D2:C6:A9:B9:28;com.example.hp.thetacab
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyANSaNQ-ZDBRCEpfBjEz2O66baPUzQFdYY</string>
+    <string name="google_directions_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBsoc1PZOItqHNYc5z2hW_ejPFi2piRR8Y</string>
+    <string name="google_places_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBsoc1PZOItqHNYc5z2hW_ejPFi2piRR8Y</string>
+    <string name="fcm_auth_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCKUi43uQYdDrA6A3SUAxlwVBpZsrCMMmU</string>
+</resources>

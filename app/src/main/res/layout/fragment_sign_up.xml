@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SignUpActivityFragment"
+    tools:showIn="@layout/activity_sign_up"
+    android:background="#ffffff">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:hint="Username"
+                android:background="#00ffffff"
+                android:textColorHint="@color/coal"
+                android:paddingTop="16dp"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_edit"
+                android:hint="Full Name"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/cell_phone_edit_signup"
+                android:layout_weight="1"
+                android:hint="Cell Number"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/cnic_edit_signup"
+                android:layout_weight="1"
+                android:hint="CNIC Number"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:id="@+id/gender_edit_signup"
+                android:layout_weight="1"
+                android:hint="Gender"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:id="@+id/birthday_edit_signup"
+                android:layout_weight="1"
+                android:hint="Birthday"
+                android:background="#00ffffff"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/coal"
+                android:typeface="monospace"
+                android:textColor="@color/sunshine" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/customerid_signup"
+                android:paddingTop="16dp"
+                android:paddingBottom="100sp">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Driver"
+                    android:textColor="@color/coal"
+                    android:id="@+id/driver_signup"
+                    android:typeface="monospace"
+                    android:textSize="18sp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Customer"
+                    android:textColor="@color/coal"
+                    android:textSize="18sp"
+                    android:id="@+id/customer_signup"
+                    android:typeface="monospace" />
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/cargar_blue_light"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
+            android:text="Sign Up"
+            android:id="@+id/sign_up"
+            android:textStyle="bold|italic"
+            android:background="@drawable/sign_up_button_background"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/sunshine"/>
+    </RelativeLayout>
+
+</RelativeLayout>

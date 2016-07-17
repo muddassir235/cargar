@@ -1,0 +1,37 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:textColorHint">#97cbc6</item>-->
+    </style>
+
+    <style name="Sign_Up_Activity_Style" parent="AppTheme">
+        <item name="android:colorAccent">@color/sunshine</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/cargar_blue_light</item>
+        <item name="android:colorPrimaryDark">@color/cargar_blue_light</item>
+    </style>
+
+    <style name="Sign_In_Activity_Style" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:colorAccent">@color/sunshine</item>
+        <item name="android:statusBarColor">@color/coal</item>
+        <item name="android:colorPrimaryDark">@color/coal</item>
+        <item name="android:navigationBarColor">@color/coal</item>
+    </style>
+
+    <style name="RatingBarStyle" parent="@android:style/Widget.Material.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingstars</item>
+        <item name="android:minHeight">22dip</item>
+        <item name="android:maxHeight">22dip</item>
+        <item name="android:textColorSecondary">#00C77C</item>
+    </style>
+
+
+</resources>

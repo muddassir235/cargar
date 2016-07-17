@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Thetacab</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="alert_activity_label">Alert</string>
+    <string name="title_activity_cab_tracker">Map</string>
+    <string name="facebook_app_id">1205938166113340</string>
+    <string name="facebook_app_secret">cb4a4f63ea060c5c8f56c2fd1273d436</string>
+    <string name="title_activity_transition">TransitionActivity</string>
+    <string name="title_activity_fire_base_entry">FireBaseEntry</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

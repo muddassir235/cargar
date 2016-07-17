@@ -1,0 +1,47 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:textColorSecondary">#007DC0</item>-->
+    </style>
+
+    <style name="RatingBarStyle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingstars</item>
+        <item name="android:minHeight">22dip</item>
+        <item name="android:maxHeight">22dip</item>
+        <item name="android:textColorSecondary">#00C77C</item>
+    </style>
+
+    <style name="Sign_Up_Activity_Style" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:colorAccent">@color/sunshine</item>
+        <item name="android:statusBarColor">@color/cargar_blue_light</item>
+        <item name="android:colorPrimaryDark">@color/cargar_blue_light</item>
+    </style>
+
+    <style name="Sign_In_Activity_Style" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:colorAccent">@color/sunshine</item>
+        <item name="android:statusBarColor">@color/coal</item>
+        <item name="android:colorPrimaryDark">@color/coal</item>
+        <item name="android:navigationBarColor">@color/coal</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="colorAccent">#ffffff</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
