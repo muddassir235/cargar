@@ -1,4 +1,4 @@
-cargarCab
+#CargarCab
 
 #Team members: 
 -(Muhammad Ali Shahzad - Engineering Lead),
@@ -14,10 +14,10 @@ cargarCab
 - **To address the concern of Ladies, we also have the standard operating model for car taxi service.**
 
 **To run the code:**
-1: Clone Project From Following Link: https://github.com/gulzainali/cargar.git
-2: Import the Project in android studio > "Version 1.0" - (Preferred version "2.1.2")
-3: Generate key for Google Places, Maps, Firebase & Directions Api
-4: Build gradle
-5: Register your emulator or physical device - Min SDK Version is Lollypop(API Level 19)
-6: Enjoy.
+1. Clone Project From Following Link: https://github.com/gulzainali/cargar.git
+2. Import the Project in android studio > "Version 1.0" - (Preferred version "2.1.2")
+3. Generate key for Google Places, Maps, Firebase & Directions Api
+4. Build gradle
+5. Register your emulator or physical device - Min SDK Version is Lollypop(API Level 19)
+6. Enjoy.
 
