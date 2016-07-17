@@ -18,7 +18,7 @@ public class Utils {
         int length = data.size();
         int i=0;
         for(LatLng latLng:data){
-            if(i == (length-1)) {
+            if(i < (length-1)) {
                 LatLng a = latLng;
                 LatLng b = data.get(i + 1);
                 float[] results = new float[3];

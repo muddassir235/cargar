@@ -22,12 +22,37 @@
         android:visibility="invisible">
     </eightbitlab.com.blurview.BlurView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="10dp">
+        <Button
+            android:id="@+id/help_call_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help Call"
+            android:visibility="gone"
+            android:background="@color/cargar_blue_light"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/help_sms_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help SMS"
+            android:visibility="gone"
+            android:background="@color/cargar_blue_light"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/eta_of_cab_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ETA: 200m in 40sec"
+        android:padding="16sp"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

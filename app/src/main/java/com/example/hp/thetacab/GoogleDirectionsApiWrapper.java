@@ -114,8 +114,9 @@ public class GoogleDirectionsApiWrapper {
 
 
 
-    public void setEtaTV(TextView tv){
+    public GoogleDirectionsApiWrapper setEtaTV(TextView tv){
         this.etaTV = tv;
+        return this;
     }
 
     public void setFairEstimateTV(TextView tv){

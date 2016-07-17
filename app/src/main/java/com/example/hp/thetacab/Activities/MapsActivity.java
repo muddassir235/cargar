@@ -1,5 +1,6 @@
 package com.example.hp.thetacab.Activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -23,6 +26,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -42,6 +46,7 @@ import android.widget.Toast;
 import com.example.hp.thetacab.Animations;
 import com.example.hp.thetacab.Constants;
 import com.example.hp.thetacab.DriverLocation;
+import com.example.hp.thetacab.FairCalculation;
 import com.example.hp.thetacab.GoogleDirectionsApiWrapper;
 import com.example.hp.thetacab.GoogleReverseGeocodingApiWrapper;
 import com.example.hp.thetacab.Order;
@@ -54,6 +59,8 @@ import com.github.hujiaweibujidao.wava.YoYo;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
@@ -61,6 +68,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -101,7 +109,8 @@ public class MapsActivity
         implements OnMapReadyCallback,
             GoogleApiClient.OnConnectionFailedListener,
             GoogleApiClient.ConnectionCallbacks,
-            NavigationView.OnNavigationItemSelectedListener
+            NavigationView.OnNavigationItemSelectedListener,
+        LocationSource.OnLocationChangedListener
 {
 
     private static final String TAG = "MapActivity";
@@ -141,6 +150,8 @@ public class MapsActivity
     @InjectView(R.id.cab_has_arrived_text_view) TextView cabHasArrivedTV;
     @InjectView(R.id.open_nav_drawer) ImageButton mOpenDrawerButton;
     @InjectView(R.id.cab_arrived_animation) AVLoadingIndicatorView cabHasArrivedAnimView;
+    @InjectView(R.id.help_call_button) Button mHelpCallButton;
+    @InjectView(R.id.help_sms_button) Button mHelpSMSButton;
     PlaceAutocompleteFragment sourceAddressAutocCompleteFragment;
     PlaceAutocompleteFragment destinationAddressAutoCompleteFragment;
 
@@ -169,6 +180,10 @@ public class MapsActivity
     private String sourceAddress;
     private String destinationAddress;
     private ArrayList<LatLng> mTripPathData;
+    public FairCalculation fairCalculation;
+    boolean activateFairEstimation;
+    private LocationRequest mLocationRequest;
+    private final String phoneNo= "+923330627462";
 
     //////////////////<Actvity Methods>///////////////////////
     @Override
@@ -224,6 +239,7 @@ public class MapsActivity
     void initializeFields(){
         DIRECTION_API_KEY = getResources().getString(R.string.google_directions_api_key);
         googleDirectionsApiWrapper = new GoogleDirectionsApiWrapper(DIRECTION_API_KEY);
+        fairCalculation = new FairCalculation(1);
         googleDirectionsApiWrapper.setCabType(1);
         googleDirectionsApiWrapper.changeEstimateWhenCabTypeChanged();
         canTapSelectionIcon = true;
@@ -236,6 +252,7 @@ public class MapsActivity
         cabFoundScreenHadBeenShown = false;
         driverIsArriving = false;
         inTrip = false;
+        activateFairEstimation = false;
     }
 
     void launchAppropriateAppState(){
@@ -408,9 +425,52 @@ public class MapsActivity
         setOnClickListenerOnRequestCabButton();
         setOnClickListenerOnCancelTripButton();
         setOnClickListenerOnOpenDrawerButton();
+        setOCLOnHelpCallButton();
+        setOCLOnHelpSMSButton();
     }
 
     ////////////////<Set OnClick Listeners>/////////////////////////////////////
+    void setOCLOnHelpCallButton(){
+        mHelpCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:"+ phoneNo ));
+
+                int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CALL_PHONE);
+                if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    //intent.setPackage("com.android.phone");
+                    //intent.putExtra("simSlot", 0);
+                    startActivity(intent);
+                    showToast("Permission Granted");
+                }else{
+                    showToast("Permission Denied");
+                }
+            }
+        });
+    }
+
+    public void showToast(String s){
+        Toast.makeText(this,s,Toast.LENGTH_SHORT).show();
+    }
+
+    ////////////////<Set OnClick Listeners>/////////////////////////////////////
+    void setOCLOnHelpSMSButton(){
+        mHelpSMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = "Help me i am in trouble. To view my Location at the time of this SMS click the following link "
+                        +"http://maps.google.com/?q="+mLastLocation.getLatitude()+","+mLastLocation.getLongitude()
+                        + " . To view my current location click the following link "+
+                        "http://cargar-survey987.rhcloud.com/FindYourPeer.html";
+
+                SmsManager smsManager = SmsManager.getDefault();
+                ArrayList<String> parts = smsManager.divideMessage(message);
+                smsManager.sendMultipartTextMessage(phoneNo, null, parts, null, null);
+                showToast("SMS Sent");
+            }
+        });
+    }
 
     void setOnClickListenerOnRequestCabButton(){
         requestCabButton.setOnClickListener(new View.OnClickListener() {
@@ -472,6 +532,11 @@ public class MapsActivity
                                                     Log.v("DriverLocation:::: ", "datasnapshot doesn't exist.");
                                                 }
                                             } else if( inTrip ){
+                                                HashMap cabLatLngHashMap = (HashMap) dataSnapshot.getValue();
+                                                double cabLat = Double.valueOf((String) cabLatLngHashMap.get("Lat"));
+                                                double cabLong = Double.valueOf((String) cabLatLngHashMap.get("Long"));
+                                                cabLatLng = new LatLng(cabLat, cabLong);
+
                                                 mTripPathData = new ArrayList<LatLng>();
                                                 FirebaseDatabase.getInstance().getReference().child("TripPath").child(getUid()+driverId).addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
@@ -486,7 +551,44 @@ public class MapsActivity
                                                                     );
                                                                     mTripPathData.add(latLng);
                                                                 }
-                                                                int distanceCoveredInMeters = Utils.getDistanceInMetersFromLatLngData(mTripPathData);
+                                                                final int distanceCoveredInMeters = Utils.getDistanceInMetersFromLatLngData(mTripPathData);
+                                                                FirebaseDatabase.getInstance().getReference().child("StartTripTime").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                        long startTime = (Long) dataSnapshot.getValue();
+                                                                        long currTime = System.currentTimeMillis();
+                                                                        long timePassed = currTime - startTime;
+                                                                        long timePassedSeconds = timePassed/1000;
+                                                                        fairCalculation.setCabType(currentCabSelection);
+                                                                        int fairEstimate = fairCalculation.getFairEstimate(distanceCoveredInMeters,Integer.valueOf(Long.toString(timePassedSeconds)));
+                                                                        int distanceInKm = distanceCoveredInMeters/1000;
+                                                                        int timeInMinutes = Integer.valueOf(Long.toString(timePassedSeconds))/60;
+                                                                        if(activateFairEstimation) {
+                                                                            etaOfCabTV.setText(
+                                                                                    "" + distanceInKm + "km has been covered in " + timeInMinutes + "minute, "
+                                                                                            + "the current fair estimate is " + fairEstimate + "PKR"
+                                                                            );
+                                                                        }
+
+                                                                        googleDirectionsApiWrapper.removePath();
+                                                                        googleDirectionsApiWrapper.animateMapToShowFullPath(false).
+                                                                                setEtaTV(null).
+                                                                                from(cabLatLng).
+                                                                                to(destinationLatLng).
+                                                                                retreiveDirections().
+                                                                                setMap(mMap).
+                                                                                drawPathOnMap();
+
+                                                                        cabMarker.setPosition(cabLatLng);
+                                                                        cabMarker.hideInfoWindow();
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                                    }
+                                                                });
                                                             }
                                                         }
                                                     }
@@ -737,6 +839,8 @@ public class MapsActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     inTrip = true;
+                    Animations.makeVisible(mHelpCallButton,mHelpSMSButton);
+                    Animations.playYoYoAnimOnMultipleViews(Techniques.FadeIn,1000,mHelpSMSButton,mHelpCallButton);
                     Order order = dataSnapshot.getValue(Order.class);
                     Animations.playYoYoAnimOnMultipleViews(Techniques.SlideOutDown,1000,driverCard,driverCardHolderFL);
                     Animations.makeVisible(etaOfCabTV);
@@ -746,7 +850,7 @@ public class MapsActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            etaOfCabTV.setText("2km has been covered in 5 minutes, the current fair estimate is 100 PKR");
+                            activateFairEstimation = true;
                         }
                     },3000);
 
@@ -1220,6 +1324,30 @@ public class MapsActivity
             }
         });
     }
+
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    protected void startLocationUpdates() {
+        createLocationRequest();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+//        LocationServices.FusedLocationApi.requestLocationUpdates(
+//                mGoogleApiClient, mLocationRequest, this);
+    }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         /**
@@ -1227,6 +1355,7 @@ public class MapsActivity
          * location and setup the map camera
          * to that location
          */
+        //startLocationUpdates();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -1572,6 +1701,19 @@ public class MapsActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if(location!=null) {
+            mLastLocation = location;
+            Log.v("LocationChanged", " Entered On location changed");
+            FirebaseDatabase.getInstance().getReference().child("PassengerLocation").
+                    child(getUid()).child("lat").setValue(location.getLatitude());
+            FirebaseDatabase.getInstance().getReference().child("PassengerLocation").
+                    child(getUid()).child("lng").setValue(location.getLongitude());
+        }
+    }
+
     //////////////</Util Functions>///////////////////////////////////////////////////
     ////////////////////////<Asynctask to send notification////////////////////////
     public class SendNotif extends AsyncTask<Integer,String,Void> {
