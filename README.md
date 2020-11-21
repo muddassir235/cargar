@@ -24,3 +24,7 @@
 5. Register your emulator or physical device - Min SDK Version is Lollypop(API Level 19)
 6. Enjoy.
 
+
+## [Apps by Muddassir Ahmed](https://play.google.com/store/apps/developer?id=Muddassir+Khan):
+* https://play.google.com/store/apps/details?id=com.muddassirkhan.quran_android
+* https://play.google.com/store/apps/details?id=com.app.kitaabattawheed
